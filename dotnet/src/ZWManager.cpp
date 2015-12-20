@@ -132,7 +132,21 @@ bool ZWManager::GetValueAsDecimal
 	if( Manager::Get()->GetValueAsString(id->CreateUnmanagedValueID(), &value ) )
 	{
 		String^ decimal = gcnew String(value.c_str());
-		o_value = Decimal::Parse( decimal );
+		return Decimal::TryParse(decimal , o_value);
+	}
+	return false;
+}
+
+bool ZWManager::GetValueAsFloat
+(
+	ZWValueID^ id,
+	[Out] System::Single %o_value
+	)
+{
+	float value;
+	if (Manager::Get()->GetValueAsFloat(id->CreateUnmanagedValueID(), &value))
+	{
+		o_value = value;
 		return true;
 	}
 	return false;

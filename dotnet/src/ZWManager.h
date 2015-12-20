@@ -926,6 +926,9 @@ namespace OpenZWaveDotNet
 	/*@{*/
 	public:
 
+		Int32 GetValueMin(ZWValueID^ id) { return Manager::Get()->GetValueMin(id->CreateUnmanagedValueID()); }
+		Int32 GetValueMax(ZWValueID^ id) { return Manager::Get()->GetValueMax(id->CreateUnmanagedValueID()); }
+
 		/**
 		 * \brief Gets the user-friendly label for the value.
 		 *
@@ -971,6 +974,7 @@ namespace OpenZWaveDotNet
 		 * \see ValueID
 		 */
 		bool IsValueReadOnly( ZWValueID^ id ){ return Manager::Get()->IsValueReadOnly(id->CreateUnmanagedValueID()); }
+		bool IsValueWriteOnly(ZWValueID^ id) { return Manager::Get()->IsValueWriteOnly(id->CreateUnmanagedValueID()); }
 
 		/**
 		 * \brief Test whether the value has been set.
@@ -1019,6 +1023,7 @@ namespace OpenZWaveDotNet
 		 * \see ValueID::GetType, GetValueAsBool, GetValueAsByte, GetValueAsInt, GetValueAsShort, GetValueAsString, GetValueListSelection, GetValueListItems 
 		 */
 		bool GetValueAsDecimal( ZWValueID^ id, [Out] System::Decimal %o_value );
+		bool GetValueAsFloat( ZWValueID^ id, [Out] System::Single %o_value);
 
 		/**
 		 * \brief Gets a value as a 32-bit signed integer.
