@@ -35,5 +35,8 @@ OZWForm.vshost.exe.manifest
 /dotnet/examples/OZWForm/src/bin/x86/Release
 /dotnet/examples/OZWForm/src/obj/x86/Release
 .gitignore
-/cpp/build/windows/winversion.cpp
+/cpp/src/winversion.cpp
 .distfiles
+.vs/
+*.sdf
+*.sln
