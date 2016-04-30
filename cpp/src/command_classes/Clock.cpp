@@ -168,7 +168,6 @@ bool Clock::SetValue
 	Value const& _value
 )
 {
-	Log::Write(LogLevel_Info, GetNodeId(), "Clock::SetValue %s", _value.GetAsString().c_str());
 	bool ret = false;
 
 	uint8 instance = _value.GetID().GetInstance();
@@ -176,20 +175,6 @@ bool Clock::SetValue
 	ValueList* dayValue = static_cast<ValueList*>( GetValue( instance, ClockIndex_Day ) );
 	ValueByte* hourValue = static_cast<ValueByte*>( GetValue( instance, ClockIndex_Hour ) );
 	ValueByte* minuteValue = static_cast<ValueByte*>( GetValue( instance, ClockIndex_Minute ) );
-
-	if (dayValue != NULL && _value.GetID() == dayValue->GetID()) {
-		dayValue->OnValueRefreshed(((ValueList*) &_value)->GetItem()->m_value);
-		dayValue->Release();
-		dayValue = (ValueList*)&_value;
-	}else if (hourValue != NULL && _value.GetID() == hourValue->GetID()) {
-		hourValue->OnValueRefreshed(((ValueByte*) &_value)->GetValue());
-		hourValue->Release();
-		hourValue = (ValueByte*)&_value;
-	}else if (minuteValue != NULL && _value.GetID() == minuteValue->GetID()) {
-		minuteValue->OnValueRefreshed(((ValueByte*) &_value)->GetValue());
-		minuteValue->Release();
-		minuteValue = (ValueByte*)&_value;
-	}
 
 	if( dayValue && hourValue && minuteValue )
 	{
@@ -223,9 +208,6 @@ bool Clock::SetValue
 			msg->Append( minute );
 			msg->Append( GetDriver()->GetTransmitOptions() );
 			GetDriver()->SendMsg( msg, Driver::MsgQueue_Send );
-
-			Log::Write(LogLevel_Info, GetNodeId(), "SET Clock value message: %s %.2d:%.2d", c_dayNames[day], hour, minute);
-
 			ret = true;
 		}
 	}
